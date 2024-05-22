@@ -2,6 +2,7 @@ package net.caffeinemc.mods.sodium.mixin.core.model.colors;
 
 import it.unimi.dsi.fastutil.objects.Reference2ReferenceMap;
 import it.unimi.dsi.fastutil.objects.Reference2ReferenceOpenHashMap;
+import net.caffeinemc.mods.sodium.client.model.color.ItemColorWrapper;
 import net.caffeinemc.mods.sodium.client.model.color.interop.ItemColorsExtension;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.color.item.ItemColors;
@@ -28,6 +29,7 @@ public class ItemColorsMixin implements ItemColorsExtension {
 
     @Override
     public ItemColor sodium$getColorProvider(ItemStack stack) {
-        return this.itemsToColor.get(stack.getItem());
+        var wrapper = this.itemsToColor.get(stack.getItem());
+        return wrapper == null ? null : new ItemColorWrapper(wrapper);
     }
 }
